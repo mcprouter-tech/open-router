@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Colors for terminal output - these are standard ANSI codes, keeping as is
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+DARK_GREEN='\033[0;32m'
+LIGHT_GREEN='\033[1;32m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+echo -e "${DARK_GREEN}┌─────────────────────────────────────────────┐${NC}"
+echo -e "${DARK_GREEN}│                                             │${NC}"
+echo -e "${DARK_GREEN}│  ${LIGHT_GREEN}MCPM - Model Context Protocol Manager${DARK_GREEN} │${NC}"
+echo -e "${DARK_GREEN}│                                             │${NC}"
+echo -e "${DARK_GREEN}└─────────────────────────────────────────────┘${NC}"
+echo
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to print info message
+info() {
+    echo -e "${DARK_GREEN}INFO:${NC} $1"
+}
+
+# Function to print error message
+error() {
+    echo -e "${RED}ERROR:${NC} $1" >&2
+}
+
+# Function to print success message
+success() {
+    echo -e "${LIGHT_GREEN}SUCCESS:${NC} $1"
+}
+
+# Function to check Python version
+check_python() {
+    if ! command_exists python3; then
+        error "Python 3 is not installed. MCPM requires Python 3.8 or higher."
+        echo "Please install Python 3.8+ and try again."
+        echo "Visit https://www.python.org/downloads/ for installation instructions."
+        exit 1
+    fi
+
+    # Check Python version
+    PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+    PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d. -f1)
+    PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d. -f2)
+
+    if [ "$PYTHON_MAJOR" -lt 3 ] || ([ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 8 ]); then
+        error "Python version $PYTHON_VERSION detected, but MCP requires Python 3.8 or higher."
+        echo "Please upgrade your Python installation and try again."
+        exit 1
+    fi
+
+    info "Found Python $PYTHON_VERSION"
+}
+
+# Function to install or upgrade pip
+ensure_pip() {
+    if ! command_exists pip3; then
+        info "Installing pip..."
+        python3 -m ensurepip --upgrade || {
+            error "Failed to install pip. Please install pip manually and try again."
+            exit 1
+        }
+    else
+        info "Upgrading pip..."
+        python3 -m pip install --upgrade pip >/dev/null 2>&1 || true
+    fi
+}
+
+# Function to install MCPM
+install_mcp() {
+    info "Installing MCPM..."
+    
+    # Check if we're on macOS
+    if [[ "$(uname)" == "Darwin" ]]; then
+        # macOS installation path
+        if command_exists pipx; then
+            info "Using pipx to install MCPM (recommended)..."
+            pipx install mcpm
+        elif command_exists brew; then
+            info "pipx not found, installing it via Homebrew..."
+            brew install pipx
+            info "Now installing MCPM with pipx..."
+            pipx install mcpm
+        else
+            info "Creating a dedicated virtual environment for MCPM..."
+            MCPM_VENV="$HOME/.mcpm-venv"
+            python3 -m venv "$MCPM_VENV"
+            "$MCPM_VENV/bin/pip" install mcpm
+            
+            # Create symlinks to the user's bin directory
+            USER_BIN="$HOME/.local/bin"
+            mkdir -p "$USER_BIN"
+            ln -sf "$MCPM_VENV/bin/mcpm" "$USER_BIN/mcpm"
+            
+            info "Installed MCPM in a virtual environment at $MCPM_VENV"
+            info "Added symlink to $USER_BIN/mcpm"
+            
+            # Add PATH warning if needed
+            if ! echo "$PATH" | grep -q "$USER_BIN"; then
+                echo "Warning: $USER_BIN is not in your PATH"
+                echo "Add the following to your shell profile (~/.bashrc, ~/.zshrc, etc.):"
+                echo "  export PATH=\"$USER_BIN:\$PATH\""
+            fi
+        fi
+    else
+        # Non-macOS installation path - try standard methods
+        if command_exists pipx; then
+            info "Using pipx to install MCPM (recommended)..."
+            pipx install mcpm
+        else
+            # Try to use pip in user mode with appropriate flags
+            info "Installing with pip in user mode..."
+            python3 -m pip install --user mcpm || {
+                error "Failed to install MCPM. Please check your permissions and try again."
+                echo "You may want to try one of these alternatives:"
+                echo "  1. Install pipx (https://pypa.github.io/pipx/) and run: pipx install mcpm"
+                echo "  2. Create a virtual environment and install there:"
+                echo "     python3 -m venv ~/.mcpm-venv"
+                echo "     source ~/.mcpm-venv/bin/activate"
+                echo "     pip install mcpm"
+                exit 1
+            }
+        fi
+    fi
+}
+
+# Function to verify installation
+verify_installation() {
+    if command_exists mcpm; then
+        MCPM_VERSION=$(mcpm --version 2>/dev/null || echo "Unknown")
+        success "MCPM $MCPM_VERSION has been successfully installed!"
+        echo
+        echo -e "${DARK_GREEN}To get started with MCPM, try:${NC}"
+        echo -e "  ${LIGHT_GREEN}mcpm --help${NC}         # Show available commands"
+        echo -e "  ${LIGHT_GREEN}mcpm ls${NC} # List local MCP servers"
+        echo -e "  ${LIGHT_GREEN}mcpm add <server>${NC} # Install an MCP server"
+        echo
+        echo -e "For more information, visit ${DARK_GREEN}https://mcpm.sh${NC}"
+        echo
+    else
+        PATH_DIRS=$(echo $PATH | tr ':' '\n')
+        USER_BIN_DIR="$HOME/.local/bin"
+        
+        if ! echo "$PATH_DIRS" | grep -q "$USER_BIN_DIR"; then
+            info "MCPM might be installed but not in your PATH."
+            echo "Try adding this to your shell profile (~/.bashrc, ~/.zshrc, etc.):"
+            echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+            echo
+            echo "After that, restart your terminal or run:"
+            echo "  source ~/.bashrc  # or ~/.zshrc, etc."
+        else
+            error "Installation seems to have failed. Please try again or install manually:"
+            echo "  pip install mcpm"
+        fi
+    fi
+}
+
+# Main installation process
+main() {
+    info "Starting MCPM installation..."
+    check_python
+    ensure_pip
+    install_mcp
+    verify_installation
+}
+
+# Execute the installation
+main
