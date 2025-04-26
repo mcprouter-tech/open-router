@@ -1,0 +1,176 @@
+name: MCP Server Info Bot
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'mcp-server-info-bot'  # Trigger only on 'mcp-server-info-bot' label
+    steps:
+      - name: Check if user is a maintainer
+        uses: actions/github-script@v6
+        id: check-maintainer
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const sender = context.payload.sender.login;
+            const { owner, repo } = context.repo;
+            
+            try {
+              // Check if user has write access (maintainer or higher)
+              const { data: permission } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: owner,
+                repo: repo,
+                username: sender
+              });
+              
+              const hasWriteAccess = ['admin', 'maintain', 'write'].includes(permission.permission);
+              
+              if (hasWriteAccess) {
+                console.log(`✅ User ${sender} is a maintainer with ${permission.permission} permissions`);
+                return true;
+              } else {
+                console.log(`❌ User ${sender} does not have sufficient permissions (${permission.permission})`);
+                return false;
+              }
+            } catch (error) {
+              console.log(`Error checking permissions: ${error.message}`);
+              return false;
+            }
+        
+      - name: Fail if not maintainer
+        if: steps.check-maintainer.outputs.result != 'true'
+        run: |
+          echo "User ${{ github.event.sender.login }} does not have maintainer permissions"
+          exit 1
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests openai jsonschema mcp loguru pydantic ruamel-yaml
+
+      - name: Create local directory
+        run: mkdir -p local
+
+      - name: Extract repository URL from issue body
+        id: extract_url
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          # Extract the repository URL from the structured template format
+          # Look for the URL between "GitHub Repository URL" and "Description" sections
+          REPO_URL=$(echo "$ISSUE_BODY" | sed -n '/GitHub Repository URL/,/Description/p' | grep "https://" | head -n 1 | xargs)
+          
+          # If that doesn't work, try a simpler approach as fallback
+          if [ -z "$REPO_URL" ]; then
+            REPO_URL=$(echo "$ISSUE_BODY" | grep -o "https://github.com[^ ]*" | head -n 1 | xargs)
+          fi
+          
+          # Make sure we have the full URL (no truncation)
+          echo "Raw Repository URL: $REPO_URL"
+          
+          # Set outputs for use in later steps
+          echo "repo_url=$REPO_URL" >> $GITHUB_OUTPUT
+
+      - name: Run Script with Extracted URL
+        id: run_script
+        env:
+          REPO_URL: ${{ steps.extract_url.outputs.repo_url }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        shell: /usr/bin/bash -e {0}
+        continue-on-error: true
+        run: |
+          echo "Running get_manifest.py with repository URL: $REPO_URL"
+          mkdir -p local
+          if python scripts/get_manifest.py "$REPO_URL"; then
+            echo "script_success=true" >> $GITHUB_OUTPUT
+          else
+            echo "script_success=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number;
+            const run_id = context.runId;
+            const repo = context.repo;
+            const run_url = `https://github.com/${repo.owner}/${repo.repo}/actions/runs/${run_id}`;
+            
+            await github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: issue_number,
+              body: `🤖 Processing your MCP server submission...\n\nTrack progress here: [GitHub Action Run #${run_id}](${run_url})`
+            });
+
+      - name: Create and push new branch
+        if: steps.run_script.outputs.script_success == 'true'
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        shell: /usr/bin/bash -e {0}
+        run: |
+          # Create a unique branch name with issue number
+          BRANCH_NAME="scrape-issue-$ISSUE_NUMBER"
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git checkout -b "$BRANCH_NAME"
+          git add -f local/ mcp-registry/  # Add all files generated by the script
+          git commit -m "Update repo with server manifest from issue #$ISSUE_NUMBER" || echo "No changes to commit"
+          git push origin "$BRANCH_NAME" --force  # Push to the new branch
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
+
+      - name: Comment on issue with success
+        if: steps.run_script.outputs.script_success == 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number;
+            const repo = context.repo;
+            const branch_name = process.env.branch_name;
+            
+            // Generate direct PR creation URL
+            const pr_title = encodeURIComponent(`chore: Add server from issue #${issue_number}`);
+            const pr_url = `https://github.com/${repo.owner}/${repo.repo}/compare/main...${branch_name}?quick_pull=1&title=${pr_title}`;
+            
+            await github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: issue_number,
+              body: `✅ Processing complete!\n\nClick here to create the pull request with one click: [Create PR](${pr_url})`
+            });
+            
+      - name: Comment on issue with failure
+        if: steps.run_script.outputs.script_success == 'false'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number;
+            const repo = context.repo;
+            const run_id = context.runId;
+            const run_url = `https://github.com/${repo.owner}/${repo.repo}/actions/runs/${run_id}`;
+            
+            await github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: issue_number,
+              body: `❌ Failed to process the server manifest. Please check the [action logs](${run_url}) for details.`
+            });
