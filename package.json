@@ -1,5 +1,5 @@
 {
-    "name": "mcpm",
+    "name": "contextus",
     "private": true,
     "devDependencies": {
         "@semantic-release/changelog": "^6.0.3",

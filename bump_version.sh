@@ -9,10 +9,10 @@ if [ $# -ne 1 ]; then
 fi
 
 NEW_VERSION=$1
-VERSION_FILE="src/mcpm/version.py"
+VERSION_FILE="src/contextus/version.py"
 
 # Update the version file
-echo '"""Single source of truth for MCPM version."""
+echo '"""Single source of truth for Contextus version."""
 
 __version__ = "'$NEW_VERSION'"' > $VERSION_FILE
 
