@@ -1,20 +1,24 @@
-# Basic Jekyll Configuration
-title: MCP Manager
-description: Open Source Model Context Protocol (MCP) Manager
-url: "https://mcpm.sh"
+# Site settings
+title: "Contextus"
+description: "Open source, community-driven, forever free. A Homebrew-like service for managing Model Context Protocol (MCP) servers across clients."
+url: "https://contextus.sh"
 baseurl: ""
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude from processing
 exclude:
   - Gemfile
   - Gemfile.lock
   - node_modules
-  - vendor
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
 
-# Set to true since we want to serve raw HTML files
-include: ["*.html"]
-# GitHub Pages settings
-github:
-  is_project_page: true
-  repository_url: https://github.com/pathintegral-institute/mcpm.sh
+repository_url: https://github.com/pathintegral-institute/contextus.sh

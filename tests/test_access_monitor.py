@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from mcpm.monitor import (
+from contextus.monitor import (
     AccessEventType,
     DuckDBAccessMonitor,
     get_monitor,

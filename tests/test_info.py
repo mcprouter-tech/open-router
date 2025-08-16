@@ -6,7 +6,7 @@ from unittest.mock import Mock
 
 from click.testing import CliRunner
 
-from mcpm.commands.info import info
+from contextus.commands.info import info
 
 
 def test_info_basic(monkeypatch):

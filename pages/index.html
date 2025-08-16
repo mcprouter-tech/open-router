@@ -5,26 +5,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCPM - MCP Manager | mcpm.sh</title>
+    <title>Contextus - MCP Manager | contextus.sh</title>
     
     <!-- Primary Meta Tags -->
-    <meta name="title" content="MCPM - MCP Manager | mcpm.sh">
-    <meta name="description" content="Open source, community-driven, forever free. A Homebrew-like service for managing Model Context Protocol (MCP) servers across clients.">
-    <meta name="keywords" content="MCPM, Model Context Protocol, AI, machine learning, open source, CLI, package manager">
+    <meta name="title" content="Contextus - MCP Manager | contextus.sh">
+    <meta name="description" content="Contextus is a CLI package management tool for MCP servers. It simplifies configuration management, enables profile grouping, provides server discovery via registry, and features a powerful router for integrating multiple MCP servers behind a single endpoint.">
+    <meta name="keywords" content="Contextus, Model Context Protocol, AI, machine learning, open source, CLI, package manager">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mcpm.sh/">
-    <meta property="og:title" content="MCPM - MCP Manager | mcpm.sh">
-    <meta property="og:description" content="Open source, community-driven, forever free. A Homebrew-like service for managing Model Context Protocol (MCP) servers across clients.">
-    <meta property="og:image" content="https://mcpm.sh/assets/images/mcpm-social.png">
+    <meta property="og:url" content="https://contextus.sh/">
+    <meta property="og:title" content="Contextus - MCP Manager | contextus.sh">
+    <meta property="og:description" content="Contextus is a CLI package management tool for MCP servers. It simplifies configuration management, enables profile grouping, provides server discovery via registry, and features a powerful router for integrating multiple MCP servers behind a single endpoint.">
+    <meta property="og:image" content="https://contextus.sh/assets/images/contextus-social.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://mcpm.sh/">
-    <meta property="twitter:title" content="MCPM - MCP Manager | mcpm.sh">
-    <meta property="twitter:description" content="Open source, community-driven, forever free. A Homebrew-like service for managing Model Context Protocol (MCP) servers across clients.">
-    <meta property="twitter:image" content="https://mcpm.sh/assets/images/mcpm-social.png">
+    <meta property="twitter:url" content="https://contextus.sh/">
+    <meta property="twitter:title" content="Contextus - MCP Manager | contextus.sh">
+    <meta property="twitter:description" content="Contextus is a CLI package management tool for MCP servers. It simplifies configuration management, enables profile grouping, provides server discovery via registry, and features a powerful router for integrating multiple MCP servers behind a single endpoint.">
+    <meta property="twitter:image" content="https://contextus.sh/assets/images/contextus-social.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -727,7 +727,7 @@
     <main>
     <div class="container">
         <header>
-            <h1>MCP Manager</h1>
+            <h1>Contextus</h1>
             <div class="tagline">Open source, community-driven, forever free.</div>
             <div class="terminal-animation">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100">
@@ -744,7 +744,7 @@
                     
                     <!-- Static command prompt - properly aligned with cursor -->
                     <text x="30" y="55" font-family="monospace" font-size="16" fill="#e2e8f0">$</text>
-                    <text x="48" y="55" font-family="monospace" font-size="16" fill="#5CD951">mcpm</text>
+                    <text x="48" y="55" font-family="monospace" font-size="16" fill="#5CD951">contextus</text>
                     
                     <!-- Animated command text - properly aligned with cursor -->
                     <text id="commandText" x="100" y="55" font-family="monospace" font-size="16" fill="#FF84BD"></text>
@@ -757,7 +757,7 @@
             </div>
         </header>
 
-        <p>MCPM is a CLI package management tool for MCP servers. It simplifies configuration management, enables profile grouping, provides server discovery via registry, and features a powerful router for intelligently share servers with multiple clients.</p>
+        <p>Contextus is a CLI package management tool for MCP servers. It simplifies configuration management, enables profile grouping, provides server discovery via registry, and features a powerful router for integrating multiple MCP servers behind a single endpoint.</p>
 
         <h2>Quick Installation</h2>
         <div class="install-section">
@@ -772,32 +772,32 @@
                 <div class="tab-content active" id="brew-tab">
                     <p>Install with Homebrew:</p>
                     <div class="code-block">
-                        <code><span class="command-prompt">$</span> brew install mcpm</code>
-                        <button class="copy-button" data-command="brew install mcpm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                        <code><span class="command-prompt">$</span> brew install contextus</code>
+                        <button class="copy-button" data-command="brew install contextus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                     </div>
                 </div>
                 
                 <div class="tab-content" id="pipx-tab">
                     <p>Install with pipx:</p>
                     <div class="code-block">
-                        <code><span class="command-prompt">$</span> pipx install mcpm</code>
-                        <button class="copy-button" data-command="pipx install mcpm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                        <code><span class="command-prompt">$</span> pipx install contextus</code>
+                        <button class="copy-button" data-command="pipx install contextus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                     </div>
                 </div>
                 
                 <div class="tab-content" id="pip-tab">
                     <p>Install with pip:</p>
                     <div class="code-block">
-                        <code><span class="command-prompt">$</span> pip install mcpm</code>
-                        <button class="copy-button" data-command="pip install mcpm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                        <code><span class="command-prompt">$</span> pip install contextus</code>
+                        <button class="copy-button" data-command="pip install contextus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                     </div>
                 </div>
                 
                 <div class="tab-content" id="script-tab">
                     <p>Install with a single command:</p>
                     <div class="code-block">
-                        <code><span class="command-prompt">$</span> curl -sSL https://mcpm.sh/install | bash</code>
-                        <button class="copy-button" data-command="curl -sSL https://mcpm.sh/install | bash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                        <code><span class="command-prompt">$</span> curl -sSL https://contextus.sh/install | bash</code>
+                        <button class="copy-button" data-command="curl -sSL https://contextus.sh/install | bash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                     </div>
                 </div>
             </div>
@@ -809,8 +809,8 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span> Server Discovery</h3>
                 <p>Find available Model Context Protocol servers:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm search</code>
-                    <button class="copy-button" data-command="mcpm search"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus search</code>
+                    <button class="copy-button" data-command="contextus search"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
             
@@ -818,8 +818,8 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span> Add Servers</h3>
                 <p>Add MCP servers directly to your client:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm add my-server</code>
-                    <button class="copy-button" data-command="mcpm add my-server"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus add my-server</code>
+                    <button class="copy-button" data-command="contextus add my-server"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
 
@@ -827,8 +827,8 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></span> List Servers</h3>
                 <p>View all your installed MCP servers:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm ls</code>
-                    <button class="copy-button" data-command="mcpm ls"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus ls</code>
+                    <button class="copy-button" data-command="contextus ls"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
 
@@ -836,8 +836,8 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span> Remove Servers</h3>
                 <p>Remove installed MCP servers when no longer needed:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm rm my-server</code>
-                    <button class="copy-button" data-command="mcpm rm my-server"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus rm my-server</code>
+                    <button class="copy-button" data-command="contextus rm my-server"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
 
@@ -845,8 +845,8 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg></span> Stash Servers</h3>
                 <p>Temporarily store server configurations:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm stash my-server</code>
-                    <button class="copy-button" data-command="mcpm stash my-server"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus stash my-server</code>
+                    <button class="copy-button" data-command="contextus stash my-server"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
             
@@ -854,8 +854,8 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg></span> Pop Stashed Servers</h3>
                 <p>Restore previously stashed configurations:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm pop my-server</code>
-                    <button class="copy-button" data-command="mcpm pop my-server"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus pop my-server</code>
+                    <button class="copy-button" data-command="contextus pop my-server"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
         </div>
@@ -866,33 +866,25 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg></span> Create Profiles</h3>
                 <p>Create named collections of server configurations:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm profile add work</code>
-                    <button class="copy-button" data-command="mcpm profile add work"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus profile add work</code>
+                    <button class="copy-button" data-command="contextus profile add work"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
             
-            <div class="feature">
-                <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg></span> Activate Profiles</h3>
-                <p>Switch between different sets of server configurations:</p>
-                <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm activate work</code>
-                    <button class="copy-button" data-command="mcpm activate work"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-                </div>
-            </div>
 
             <div class="feature">
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></span> List Profiles</h3>
-                <p>View all available MCPM profiles:</p>
+                <p>View all available Contextus profiles:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm profile ls</code>
-                    <button class="copy-button" data-command="mcpm profile ls"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus profile ls</code>
+                    <button class="copy-button" data-command="contextus profile ls"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
         </div>
         
         <h2>Router Management</h2>
         <div class="coming-soon">
-            <p>The MCPM Router aggregates multiple MCP servers behind a single endpoint and enables shared sessions. It connects to servers as a client while providing a unified interface to upstream clients. Key benefits include resource efficiency (only one server instance runs regardless of client count), profile-based access control, and persistent connections. <a href="https://github.com/pathintegral-institute/mcpm.sh/blob/main/docs/advanced_features.md" target="_blank">Learn more →</a></p>
+            <p>The Contextus Router aggregates multiple MCP servers behind a single endpoint and enables shared sessions. It connects to servers as a client while providing a unified interface to upstream clients. Key benefits include simplified configuration management, resource efficiency through shared connections, and seamless server switching without client reconfiguration. <a href="https://github.com/pathintegral-institute/contextus.sh/blob/main/docs/advanced_features.md" target="_blank">Learn more →</a></p>
             
             <div class="router-diagram">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" class="router-svg">
@@ -902,7 +894,7 @@
                     <!-- Central Router - Made larger -->
                     <g class="router-node">
                         <circle cx="300" cy="150" r="60" fill="#2e3238" stroke="#5CD951" stroke-width="3"/>
-                        <text x="300" y="150" text-anchor="middle" fill="#5CD951" font-weight="bold" font-size="16">MCPM Router</text>
+                        <text x="300" y="150" text-anchor="middle" fill="#5CD951" font-weight="bold" font-size="16">Contextus Router</text>
                     </g>
                     
                     <!-- Client Nodes -->
@@ -977,25 +969,25 @@
                     </circle>
                 </svg>
             </div>
-            <p class="router-caption">The MCPM Router acts as a central hub connecting all your clients to your MCP servers, enabling shared sessions and simplified management.</p>
+            <p class="router-caption">The Contextus Router acts as a central hub connecting all your clients to your MCP servers, enabling shared sessions and simplified management.</p>
         </div>
         
         <div class="features">
             <div class="feature">
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg></span> Start Router</h3>
-                <p>Start the MCPM router daemon:</p>
+                <p>Start the Contextus router daemon:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm router on</code>
-                    <button class="copy-button" data-command="mcpm router on"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus router on</code>
+                    <button class="copy-button" data-command="contextus router on"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
             
             <div class="feature">
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg></span> Stop Router</h3>
-                <p>Stop the MCPM router daemon:</p>
+                <p>Stop the Contextus router daemon:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm router off</code>
-                    <button class="copy-button" data-command="mcpm router off"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus router off</code>
+                    <button class="copy-button" data-command="contextus router off"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
 
@@ -1003,8 +995,8 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span> Router Status</h3>
                 <p>Check if the router daemon is running:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm router status</code>
-                    <button class="copy-button" data-command="mcpm router status"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus router status</code>
+                    <button class="copy-button" data-command="contextus router status"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
         </div>
@@ -1013,10 +1005,10 @@
         <div class="features">
             <div class="feature">
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span> Set Active Client</h3>
-                <p>Easily switch between and manage MCP clients:</p>
+                <p>Easily switch between and manage MCP clients/profiles:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm client set claude-desktop</code>
-                    <button class="copy-button" data-command="mcpm client set claude-desktop"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus target set @claude-desktop</code>
+                    <button class="copy-button" data-command="contextus target set @claude-desktop"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
             
@@ -1024,15 +1016,15 @@
                 <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span> Edit Client Configuration</h3>
                 <p>View or edit your client's configuration:</p>
                 <div class="code-block">
-                    <code><span class="command-prompt">$</span> mcpm client edit</code>
-                    <button class="copy-button" data-command="mcpm client edit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                    <code><span class="command-prompt">$</span> contextus client edit</code>
+                    <button class="copy-button" data-command="contextus client edit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="m5 15-4-4 4-4"></path></svg></button>
                 </div>
             </div>
         </div>
         
         <div class="clients">
             <h2>Supported Clients</h2>
-            <p>MCPM currently supports these AI clients:</p>
+            <p>Contextus currently supports these AI clients:</p>
             <ul>
                 <li><strong>Claude Desktop</strong> - Anthropic's AI assistant</li>
                 <li><strong>Windsurf</strong> - The world's first agentic IDE</li>
@@ -1100,10 +1092,10 @@
                     " add my-server", 
                     " ls", 
                     " profile add work", 
-                    " activate work", 
+                    " target set %work", 
                     " router on", 
                     " stash my-server",
-                    " client set claude"
+                    " target set @claude-desktop"
                 ];
                 let currentCommand = 0;
                 let charIndex = 0;

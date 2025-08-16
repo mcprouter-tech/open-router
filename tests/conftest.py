@@ -13,9 +13,9 @@ import pytest
 # Add the src directory to the path for all tests
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from mcpm.clients.managers.claude_desktop import ClaudeDesktopManager
-from mcpm.clients.managers.windsurf import WindsurfManager
-from mcpm.utils.config import ConfigManager
+from contextus.clients.managers.claude_desktop import ClaudeDesktopManager
+from contextus.clients.managers.windsurf import WindsurfManager
+from contextus.utils.config import ConfigManager
 
 
 @pytest.fixture
@@ -50,7 +50,7 @@ def config_manager():
         # Create ConfigManager with the temp path
         config_mgr = ConfigManager(config_path=config_path)
         # Create ClientConfigManager that will use this ConfigManager internally
-        from mcpm.clients.client_config import ClientConfigManager
+        from contextus.clients.client_config import ClientConfigManager
 
         client_mgr = ClientConfigManager()
         # Override its internal config_manager with our temp one

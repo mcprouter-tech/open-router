@@ -3,7 +3,7 @@ from collections import deque
 from click import Group
 from click.testing import CliRunner
 
-from mcpm.cli import main
+from contextus.cli import main
 
 
 def test_cli_help():

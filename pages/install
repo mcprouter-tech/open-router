@@ -1,177 +1,185 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-set -e
-
-# Colors for terminal output - these are standard ANSI codes, keeping as is
+# Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[1;37m'
 DARK_GREEN='\033[0;32m'
 LIGHT_GREEN='\033[1;32m'
-CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
+# Banner
 echo -e "${DARK_GREEN}┌─────────────────────────────────────────────┐${NC}"
-echo -e "${DARK_GREEN}│                                             │${NC}"
-echo -e "${DARK_GREEN}│  ${LIGHT_GREEN}MCPM - Model Context Protocol Manager${DARK_GREEN} │${NC}"
-echo -e "${DARK_GREEN}│                                             │${NC}"
+echo -e "${DARK_GREEN}│  ${LIGHT_GREEN}Contextus - Model Context Protocol Manager${DARK_GREEN} │${NC}"
 echo -e "${DARK_GREEN}└─────────────────────────────────────────────┘${NC}"
-echo
+echo ""
 
-# Function to check if a command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
-
-# Function to print info message
+# Function to print colored output
 info() {
-    echo -e "${DARK_GREEN}INFO:${NC} $1"
+    echo -e "${BLUE}ℹ${NC} $1"
 }
 
-# Function to print error message
-error() {
-    echo -e "${RED}ERROR:${NC} $1" >&2
-}
-
-# Function to print success message
 success() {
-    echo -e "${LIGHT_GREEN}SUCCESS:${NC} $1"
+    echo -e "${GREEN}✓${NC} $1"
 }
 
-# Function to check Python version
-check_python() {
-    if ! command_exists python3; then
-        error "Python 3 is not installed. MCPM requires Python 3.8 or higher."
-        echo "Please install Python 3.8+ and try again."
-        echo "Visit https://www.python.org/downloads/ for installation instructions."
+warning() {
+    echo -e "${YELLOW}⚠${NC} $1"
+}
+
+error() {
+    echo -e "${RED}✗${NC} $1"
+}
+
+# Check if Python 3 is installed
+if ! command -v python3 &> /dev/null; then
+    error "Python 3 is not installed. Contextus requires Python 3.8 or higher."
+    echo ""
+    echo "Please install Python 3 and try again:"
+    echo "  • macOS: brew install python3"
+    echo "  • Ubuntu/Debian: sudo apt update && sudo apt install python3 python3-pip"
+    echo "  • CentOS/RHEL: sudo yum install python3 python3-pip"
+    echo "  • Windows: Download from https://python.org"
         exit 1
     fi
 
-    # Check Python version
-    PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-    PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d. -f1)
-    PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d. -f2)
+# Get Python version
+PYTHON_VERSION=$(python3 -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
+info "Found Python $PYTHON_VERSION"
 
-    if [ "$PYTHON_MAJOR" -lt 3 ] || ([ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 8 ]); then
-        error "Python version $PYTHON_VERSION detected, but MCP requires Python 3.8 or higher."
-        echo "Please upgrade your Python installation and try again."
+# Check if Python version is 3.8 or higher
+if python3 -c 'import sys; exit(0 if sys.version_info >= (3, 8) else 1)'; then
+    success "Python version is compatible"
+else
+    error "Python 3.8 or higher is required. Found Python $PYTHON_VERSION"
         exit 1
     fi
 
-    info "Found Python $PYTHON_VERSION"
-}
+# Create user bin directory if it doesn't exist
+USER_BIN="$HOME/.local/bin"
+mkdir -p "$USER_BIN"
 
-# Function to install or upgrade pip
-ensure_pip() {
-    if ! command_exists pip3; then
-        info "Installing pip..."
-        python3 -m ensurepip --upgrade || {
-            error "Failed to install pip. Please install pip manually and try again."
-            exit 1
-        }
-    else
-        info "Upgrading pip..."
-        python3 -m pip install --upgrade pip >/dev/null 2>&1 || true
-    fi
-}
-
-# Function to install MCPM
-install_mcp() {
-    info "Installing MCPM..."
+# Check if ~/.local/bin is in PATH
+if [[ ":$PATH:" != *":$USER_BIN:"* ]]; then
+    warning "~/.local/bin is not in your PATH"
+    echo "Adding ~/.local/bin to your PATH..."
     
-    # Check if we're on macOS
-    if [[ "$(uname)" == "Darwin" ]]; then
-        # macOS installation path
-        if command_exists pipx; then
-            info "Using pipx to install MCPM (recommended)..."
-            pipx install mcpm
-        elif command_exists brew; then
-            info "pipx not found, installing it via Homebrew..."
-            brew install pipx
-            info "Now installing MCPM with pipx..."
-            pipx install mcpm
-        else
-            info "Creating a dedicated virtual environment for MCPM..."
-            MCPM_VENV="$HOME/.mcpm-venv"
-            python3 -m venv "$MCPM_VENV"
-            "$MCPM_VENV/bin/pip" install mcpm
-            
-            # Create symlinks to the user's bin directory
-            USER_BIN="$HOME/.local/bin"
-            mkdir -p "$USER_BIN"
-            ln -sf "$MCPM_VENV/bin/mcpm" "$USER_BIN/mcpm"
-            
-            info "Installed MCPM in a virtual environment at $MCPM_VENV"
-            info "Added symlink to $USER_BIN/mcpm"
-            
-            # Add PATH warning if needed
-            if ! echo "$PATH" | grep -q "$USER_BIN"; then
-                echo "Warning: $USER_BIN is not in your PATH"
-                echo "Add the following to your shell profile (~/.bashrc, ~/.zshrc, etc.):"
-                echo "  export PATH=\"$USER_BIN:\$PATH\""
-            fi
-        fi
+    # Add to shell profile
+    if [[ "$SHELL" == *"zsh"* ]]; then
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+        info "Added to ~/.zshrc"
+    elif [[ "$SHELL" == *"bash"* ]]; then
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+        info "Added to ~/.bashrc"
     else
-        # Non-macOS installation path - try standard methods
-        if command_exists pipx; then
-            info "Using pipx to install MCPM (recommended)..."
-            pipx install mcpm
-        else
-            # Try to use pip in user mode with appropriate flags
-            info "Installing with pip in user mode..."
-            python3 -m pip install --user mcpm || {
-                error "Failed to install MCPM. Please check your permissions and try again."
-                echo "You may want to try one of these alternatives:"
-                echo "  1. Install pipx (https://pypa.github.io/pipx/) and run: pipx install mcpm"
-                echo "  2. Create a virtual environment and install there:"
-                echo "     python3 -m venv ~/.mcpm-venv"
-                echo "     source ~/.mcpm-venv/bin/activate"
-                echo "     pip install mcpm"
-                exit 1
-            }
-        fi
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.profile
+        info "Added to ~/.profile"
     fi
-}
+    
+    # Export for current session
+    export PATH="$HOME/.local/bin:$PATH"
+fi
 
-# Function to verify installation
-verify_installation() {
-    if command_exists mcpm; then
-        MCPM_VERSION=$(mcpm --version 2>/dev/null || echo "Unknown")
-        success "MCPM $MCPM_VERSION has been successfully installed!"
-        echo
-        echo -e "${DARK_GREEN}To get started with MCPM, try:${NC}"
-        echo -e "  ${LIGHT_GREEN}mcpm --help${NC}         # Show available commands"
-        echo -e "  ${LIGHT_GREEN}mcpm ls${NC} # List local MCP servers"
-        echo -e "  ${LIGHT_GREEN}mcpm add <server>${NC} # Install an MCP server"
-        echo
-        echo -e "For more information, visit ${DARK_GREEN}https://mcpm.sh${NC}"
-        echo
-    else
-        PATH_DIRS=$(echo $PATH | tr ':' '\n')
-        USER_BIN_DIR="$HOME/.local/bin"
+# Function to install Contextus
+install_contextus() {
+    info "Installing Contextus..."
+    
+    # Check if pipx is available
+    if command -v pipx &> /dev/null; then
+        info "Found pipx, using it for installation..."
+        if pipx list | grep -q "contextus"; then
+            info "Contextus is already installed via pipx, upgrading..."
+            pipx upgrade contextus
+        else
+            info "Using pipx to install Contextus (recommended)..."
+            pipx install contextus
+        fi
+    elif python3 -m pip show pipx &> /dev/null; then
+        info "pipx is installed but not in PATH, using it anyway..."
+        info "Now installing Contextus with pipx..."
+        pipx install contextus
+        else
+        info "Creating a dedicated virtual environment for Contextus..."
+        CONTEXTUS_VENV="$HOME/.contextus-venv"
+        python3 -m venv "$CONTEXTUS_VENV"
+        "$CONTEXTUS_VENV/bin/pip" install contextus
         
-        if ! echo "$PATH_DIRS" | grep -q "$USER_BIN_DIR"; then
-            info "MCPM might be installed but not in your PATH."
-            echo "Try adding this to your shell profile (~/.bashrc, ~/.zshrc, etc.):"
-            echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
-            echo
-            echo "After that, restart your terminal or run:"
-            echo "  source ~/.bashrc  # or ~/.zshrc, etc."
-        else
-            error "Installation seems to have failed. Please try again or install manually:"
-            echo "  pip install mcpm"
+        # Create symlink in user bin
+        if [[ -f "$CONTEXTUS_VENV/bin/contextus" ]]; then
+            ln -sf "$CONTEXTUS_VENV/bin/contextus" "$USER_BIN/contextus"
         fi
+        
+        info "Installed Contextus in a virtual environment at $CONTEXTUS_VENV"
+        info "Added symlink to $USER_BIN/contextus"
     fi
 }
 
-# Main installation process
-main() {
-    info "Starting MCPM installation..."
-    check_python
-    ensure_pip
-    install_mcp
-    verify_installation
-}
+# Check if we should use pipx
+if command -v pipx &> /dev/null; then
+    success "pipx is available"
+    install_contextus
+elif python3 -c "import pipx" 2>/dev/null; then
+    success "pipx is installed"
+    install_contextus
+else
+    info "pipx not found, checking if we should install it..."
+    
+    # Ask user if they want to install pipx
+    echo ""
+    echo "pipx is the recommended way to install Python CLI tools like Contextus."
+    echo "It creates isolated environments for each tool, preventing conflicts."
+    echo ""
+    read -p "Would you like to install pipx first? (y/N): " -n 1 -r
+    echo ""
+    
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        info "Installing pipx..."
+        python3 -m pip install --user pipx
+        python3 -m pipx ensurepath
+        
+        # Reload PATH
+        export PATH="$HOME/.local/bin:$PATH"
+        
+        if command -v pipx &> /dev/null; then
+            success "pipx installed successfully"
+            info "Using pipx to install Contextus (recommended)..."
+            pipx install contextus
+        else
+            warning "pipx installation may not be in PATH yet"
+            info "Installing Contextus with pip in a virtual environment..."
+            install_contextus
+        fi
+    else
+        info "Installing Contextus with pip in a virtual environment..."
+        install_contextus
+        fi
+    fi
 
-# Execute the installation
-main
+# Verify installation
+echo ""
+info "Verifying installation..."
+
+if command -v contextus &> /dev/null; then
+    success "Contextus installed successfully!"
+    echo ""
+    echo -e "${CYAN}🎉 Installation complete!${NC}"
+    echo ""
+    echo "Try these commands to get started:"
+    echo -e "  ${WHITE}contextus --help${NC}          # Show help"
+    echo -e "  ${WHITE}contextus search${NC}           # Search for MCP servers"
+    echo -e "  ${WHITE}contextus client ls${NC}        # List supported clients"
+    echo ""
+    echo -e "For more information, visit ${DARK_GREEN}https://contextus.sh${NC}"
+else
+    error "Installation verification failed"
+    echo ""
+    echo "Contextus may not be in your PATH. Try:"
+    echo "  1. Restart your terminal"
+    echo "  2. Run: source ~/.bashrc (or ~/.zshrc)"
+    echo "  3. Or run: export PATH=\"\$HOME/.local/bin:\$PATH\""
+    exit 1
+fi

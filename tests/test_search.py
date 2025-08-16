@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 from click.testing import CliRunner
 
-from mcpm.commands.search import search
+from contextus.commands.search import search
 
 
 def test_search_all_servers(monkeypatch):

@@ -12,9 +12,9 @@ from unittest.mock import patch
 
 import pytest
 
-from mcpm.clients.managers.windsurf import WindsurfManager
-from mcpm.schemas.server_config import ServerConfig, STDIOServerConfig
-from mcpm.utils.config import ConfigManager
+from contextus.clients.managers.windsurf import WindsurfManager
+from contextus.core.schema import ServerConfig, STDIOServerConfig
+from contextus.utils.config import ConfigManager
 
 
 class TestBaseClientManagerViaWindsurf:
@@ -51,7 +51,7 @@ class TestBaseClientManagerViaWindsurf:
             # Create ConfigManager with the temp path
             config_mgr = ConfigManager(config_path=config_path)
             # Create ClientConfigManager that will use this ConfigManager internally
-            from mcpm.clients.client_config import ClientConfigManager
+            from contextus.clients.client_config import ClientConfigManager
 
             client_mgr = ClientConfigManager()
             # Override its internal config_manager with our temp one
@@ -213,8 +213,9 @@ class TestBaseClientManagerViaWindsurf:
         assert "windsurf" in supported_clients
 
         # Test setting Windsurf as active client
-        success = config_manager.set_active_client("windsurf")
+        success = config_manager.set_active_target("windsurf")
         assert success
+        assert config_manager.get_active_target() == "windsurf"
         assert config_manager.get_active_client() == "windsurf"
 
         # In the distributed architecture, each client manages its own servers

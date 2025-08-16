@@ -2,7 +2,7 @@
 Basic tests for MCPM
 """
 
-from src.mcpm.cli import main
+from src.contextus.cli import main
 
 
 def test_cli_imports():
